@@ -1,9 +1,9 @@
 <script setup>
-import Sac from "./components/Sac.vue";
+import Financiamento from "./components/Financiamento.vue";
 </script>
 
 <template>
-  <Sac />
+  <Financiamento />
 </template>
 
 <style>
