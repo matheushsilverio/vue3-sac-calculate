@@ -99,7 +99,7 @@
                 <div class="level-right">
                   <button
                     class="button is-danger has-right-icon is-small"
-                    @click="resetValues"
+                    @click="resetPrice"
                   >
                     <span class="icon">
                       <i class="fas fa-times"></i>
@@ -129,6 +129,39 @@
                   </div>
                 </div>
               </div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Período</th>
+                    <th>Amortização</th>
+                    <th>Juros</th>
+                    <th>Prestação</th>
+                    <th>Valor Pago</th>
+                    <th>Saldo Devedor</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Período</th>
+                    <th>Amortização</th>
+                    <th>Juros</th>
+                    <th>Prestação</th>
+                    <th>Valor Pago</th>
+                    <th>Saldo Devedor</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr v-for="item of price.prestacoes" :key="item.index">
+                    <th>{{ item.index }}</th>
+                    <td>{{ item.amortization }}</td>
+                    <td>{{ item.interestRateBalance }}</td>
+                    <td>{{ item.portion }}</td>
+                    <td>{{ item.valuePaid }}</td>
+                    <td>{{ item.balance }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -142,7 +175,7 @@
                 <div class="level-right">
                   <button
                     class="button is-danger has-right-icon is-small"
-                    @click="resetValues"
+                    @click="resetSac"
                   >
                     <span class="icon">
                       <i class="fas fa-times"></i>
@@ -260,9 +293,14 @@ export default {
 
       return Object.keys(this.validators).length === 0;
     },
-    resetValues() {
-      this.sac = null;
+    resetPrice() {
       this.price = null;
+      this.taxa = null;
+      this.totalValue = null;
+      this.qtdPeriod = null;
+    },
+    resetSac() {
+      this.sac = null;
       this.taxa = null;
       this.totalValue = null;
       this.qtdPeriod = null;

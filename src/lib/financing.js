@@ -42,8 +42,33 @@ export class Financiamento {
     const valorTotalFinanciamento = installment * this.periods;
     const valorTotalJuros = valorTotalFinanciamento - this.presentValue;
 
+    let valuePaid = 0;
+    let balance = this.presentValue;
+    let valuePaidWithInterestedRate = 0;
+    let price = [];
+
+    for (let i = 1; i <= this.periods; i++) {
+      const interestedRateBalance = balance * this.interestedRate;
+      const amortizationBalance = installment - balance * this.interestedRate;
+
+      valuePaid = installment * i;
+      valuePaidWithInterestedRate *= interestedRateBalance;
+
+      price.push({
+        index: i,
+        amortization: this.formataMascara("BRL", amortizationBalance),
+        interestRateBalance: this.formataMascara("BRL", interestedRateBalance),
+        portion: this.formataMascara("BRL", installment),
+        valuePaid: this.formataMascara("BRL", valuePaid),
+        balance: this.formataMascara("BRL", balance),
+      });
+
+      balance -= amortizationBalance;
+    }
+
     return {
       valorPrestacao,
+      prestacoes: price,
       valorTotalFinanciamento: this.formataMascara(
         "BRL",
         valorTotalFinanciamento
